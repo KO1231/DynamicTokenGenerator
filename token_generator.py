@@ -35,7 +35,7 @@ def generate(token_exp: int = 60 * 60 * 24 * 30):
     return response_json
 
 
-def get_valid_tokenids() -> list[str]:
+def get_valid_tokenids() -> list:
     jwt = jutil.get_jwt(
         credential_folder=_get_credential_folder(),
         jwt_exp=10,
@@ -56,7 +56,7 @@ def get_valid_tokenids() -> list[str]:
 
     return response.json()["kids"]
 
-def _delete_invalid_tokens(valid_token_kids: list[str]) -> list[map]:
+def _delete_invalid_tokens(valid_token_kids: list) -> list:
     token_file = Path("TOKEN")
     if not token_file.exists():
         with token_file.open(mode="wt") as f:
