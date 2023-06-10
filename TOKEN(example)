@@ -1,0 +1,2 @@
+[{"token_id": "<TOKEN ID>", "token": "<TOKEN>", "expire_date": <EXPIRE_DATE(UNIX TIME)>},...]
+EXPIRE DATE is set 5 minutes in advance to allow for time errors.

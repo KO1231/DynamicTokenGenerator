@@ -1,0 +1,4 @@
+<public key>
+Prepare key yourself or launch prepare/assertion.py to do so.
+When launching the assertion.py, delete this file before launching it.
+To prevent unintended loss, the file will not start while this file is exists.
