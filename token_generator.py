@@ -1,4 +1,3 @@
-import json
 from pathlib import Path
 import jwt_util as jutil
 import requests
