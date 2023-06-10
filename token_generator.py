@@ -79,7 +79,7 @@ def _get_credential_folder():
 def _get_token_file():
     return Path(__file__).parent.resolve().joinpath("TOKEN")
 
-def main(force_generate: bool = False):
+def main(force_generate: bool = False, token_exp: int = 60 * 60 * 24 * 30):
     # Token limit check
     valid_ids = get_valid_tokenids()
     valid_tokens = _delete_invalid_tokens(valid_ids)
@@ -92,7 +92,7 @@ def main(force_generate: bool = False):
         raise RuntimeError("Can't generate token because amount limit.")
 
     # Generate
-    new_token = generate(60)
+    new_token = generate(token_exp)
     valid_tokens.append(new_token)
 
     # Add new token to TOKENS
