@@ -80,7 +80,7 @@ def main(force_generate: bool = False):
     # Token limit check
     valid_ids = get_valid_tokenids()
     valid_tokens = _delete_invalid_tokens(valid_ids)
-    if len(valid_ids) > 0 and not force_generate:
+    if len(valid_tokens) > 0 and not force_generate:
         with open("TOKEN", mode="wt") as f:
             f.write(str(valid_tokens))
         return valid_tokens
