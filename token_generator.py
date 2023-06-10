@@ -57,7 +57,7 @@ def get_valid_tokenids() -> list:
     return response.json()["kids"]
 
 def _delete_invalid_tokens(valid_token_kids: list) -> list:
-    token_file = Path("TOKEN")
+    token_file = _get_token_file()
     if not token_file.exists():
         with token_file.open(mode="wt") as f:
             f.write("[]")
@@ -76,12 +76,15 @@ def _get_credential_folder():
     credential_folder.mkdir(exist_ok=True)
     return credential_folder
 
+def _get_token_file():
+    return Path(__file__).parent.resolve().joinpath("TOKEN")
+
 def main(force_generate: bool = False):
     # Token limit check
     valid_ids = get_valid_tokenids()
     valid_tokens = _delete_invalid_tokens(valid_ids)
     if len(valid_tokens) > 0 and not force_generate:
-        with open("TOKEN", mode="wt") as f:
+        with _get_token_file().open(mode="wt") as f:
             f.write(str(valid_tokens))
         return valid_tokens
 
@@ -93,7 +96,7 @@ def main(force_generate: bool = False):
     valid_tokens.append(new_token)
 
     # Add new token to TOKENS
-    with open("TOKEN", mode="wt") as f:
+    with _get_token_file().open(mode="wt") as f:
         f.write(str(valid_tokens))
     return valid_tokens
 
