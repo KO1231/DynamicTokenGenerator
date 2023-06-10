@@ -77,18 +77,26 @@ def _get_credential_folder():
     credential_folder.mkdir(exist_ok=True)
     return credential_folder
 
-
-if __name__ == '__main__':
+def main(force_generate: bool = False):
     # Token limit check
     valid_ids = get_valid_tokenids()
     valid_tokens = _delete_invalid_tokens(valid_ids)
+    if len(valid_ids) > 0 and not force_generate:
+        with open("TOKEN", mode="wt") as f:
+            f.write(str(valid_tokens))
+        return valid_tokens
+
     if len(valid_ids) >= 30:
         raise RuntimeError("Can't generate token because amount limit.")
 
     # Generate
-    new_token = generate(5)
+    new_token = generate(60)
     valid_tokens.append(new_token)
 
     # Add new token to TOKENS
     with open("TOKEN", mode="wt") as f:
         f.write(str(valid_tokens))
+    return valid_tokens
+
+if __name__ == '__main__':
+    main()
